@@ -4,7 +4,7 @@ For more details, see my blog post on this project here: http://kaviddiss.com/20
 
 To run it you need:
 
-JDK 1.8
+JDK 11
 Maven 3.x (http://maven.apache.org):
 
 ```sh
