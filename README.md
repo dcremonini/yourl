@@ -6,13 +6,15 @@ For more details, see the David Kiss original blog post here: http://kaviddiss.c
 To run it you need:
 
 - JDK 11
-- Maven 3.x (http://maven.apache.org):
 
 ```sh
-$ mvn spring-boot:run
+$ ./mvnw spring-boot:run
 ```
 
 Then navigate to http://localhost:8080/ in your browser.
+
+Please note that mvnw is a Maven wrapper https://github.com/takari/takari-maven-plugin
+
 
 ## Continuous integration
 
@@ -36,7 +38,7 @@ The shorten url request is mapped into this POJO (Plain Old Java Object) by Spri
 This is a Thymeleaf-based (http://www.thymeleaf.org/) template that uses Twitter Bootstrap (http://getbootstrap.com/) to render the home screen's HTML code. It renders the data (Model) provided by the request mappings in the UrlController class.
 
 ### [InMemoryUrlStoreService.java](https://github.com/davidkiss/yourl/blob/master/src/main/java/com/yourl/service/InMemoryUrlStoreService.java)
-The application currently only persists shortened urls into an in-memory persistence layer implemented in this minimalist class. Later on we can improve this by implementating the [IUrlStoreService](https://github.com/davidkiss/yourl/blob/master/src/main/java/com/yourl/service/IUrlStoreService.java) interface to persist data to a database.
+The application currently only persists shortened urls into an in-memory persistence layer implemented in this minimalist class. Later on we can improve this by implementing the [IUrlStoreService](https://github.com/davidkiss/yourl/blob/master/src/main/java/com/yourl/service/IUrlStoreService.java) interface to persist data to a database.
 
 That's it in a nutshell. If you have any question or suggestion, don't hesitate to contact me at info@kaviddiss.com.
 
