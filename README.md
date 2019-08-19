@@ -1,17 +1,22 @@
 # yourl
-Sample url-shortener web application to demonstrate how to build web applications using Java + Spring Boot.
-For more details, see my blog post on this project here: http://kaviddiss.com/2015/07/18/building-modern-web-applications-using-java-spring/.
+Sample url-shortener web application to demonstrate how to build web applications using Java 11 + Spring Boot.
+
+For more details, see the David Kiss original blog post here: http://kaviddiss.com/2015/07/18/building-modern-web-applications-using-java-spring/.
 
 To run it you need:
 
-JDK 11
-Maven 3.x (http://maven.apache.org):
+- JDK 11
+- Maven 3.x (http://maven.apache.org):
 
 ```sh
 $ mvn spring-boot:run
 ```
 
 Then navigate to http://localhost:8080/ in your browser.
+
+## Continuous integration
+
+[![Build Status](https://travis-ci.com/dcremonini/yourl.svg?branch=master)](https://travis-ci.com/dcremonini/yourl)
 
 ## Components
 
