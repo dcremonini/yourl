@@ -4,14 +4,15 @@ import com.google.common.hash.Hashing;
 import com.yourl.controller.dto.ShortenUrlRequest;
 import com.yourl.service.IUrlStoreService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -24,15 +25,16 @@ import java.nio.charset.StandardCharsets;
  */
 @Controller
 public class UrlController {
+
     @Autowired
     private IUrlStoreService urlStoreService;
 
-    @RequestMapping(value="/", method=RequestMethod.GET)
+    @GetMapping("/")
     public String showForm(ShortenUrlRequest request) {
         return "shortener";
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping("/{id}")
     public void redirectToUrl(@PathVariable String id, HttpServletResponse resp) throws Exception {
         final String url = urlStoreService.findUrlById(id);
         if (url != null) {
@@ -43,7 +45,7 @@ public class UrlController {
         }
     }
 
-    @RequestMapping(value="/", method = RequestMethod.POST)
+    @PostMapping("/")
     public ModelAndView shortenUrl(HttpServletRequest httpRequest,
                                    @Valid ShortenUrlRequest request,
                                    BindingResult bindingResult) {

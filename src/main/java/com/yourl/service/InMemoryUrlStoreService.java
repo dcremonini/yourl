@@ -10,7 +10,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * Created by david on 2015-06-02.
  */
 @Service
-public class InMemoryUrlStoreService implements IUrlStoreService{
+public class InMemoryUrlStoreService implements IUrlStoreService {
+
     private Map<String, String> urlByIdMap = new ConcurrentHashMap<>();
 
     @Override
