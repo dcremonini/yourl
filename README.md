@@ -1,5 +1,5 @@
 # yourl
-Sample url-shortener web application to demonstrate how to build web applications using Java 11 + Spring Boot.
+Sample url-shortener web application to demonstrate how to build web applications using Java 11 + Spring Boot 2.1.x.
 
 For more details, see the David Kiss original blog post here: http://kaviddiss.com/2015/07/18/building-modern-web-applications-using-java-spring/.
 
@@ -19,6 +19,11 @@ Please note that mvnw is a Maven wrapper https://github.com/takari/takari-maven-
 ## Continuous integration
 
 [![Build Status](https://travis-ci.com/dcremonini/yourl.svg?branch=master)](https://travis-ci.com/dcremonini/yourl)
+
+## How to contribute
+
+1. Clone the develop branch.
+1. Branch from develop branch.
 
 ## Components
 
