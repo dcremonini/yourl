@@ -4,15 +4,12 @@ import com.google.common.hash.Hashing;
 import com.yourl.controller.dto.ShortenUrlRequest;
 import com.yourl.service.IUrlStoreService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -26,8 +23,11 @@ import java.nio.charset.StandardCharsets;
 @Controller
 public class UrlController {
 
-    @Autowired
     private IUrlStoreService urlStoreService;
+
+    public UrlController(IUrlStoreService urlStoreService) {
+        this.urlStoreService = urlStoreService;
+    }
 
     @GetMapping("/")
     public String showForm(ShortenUrlRequest request) {
