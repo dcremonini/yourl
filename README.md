@@ -39,12 +39,7 @@ Following the MVC paradigm, this class serves as the Controller that processes H
 ### [ShortenUrlRequest.java](https://github.com/davidkiss/yourl/blob/master/src/main/java/com/yourl/controller/dto/ShortenUrlRequest.java)
 The shorten url request is mapped into this POJO (Plain Old Java Object) by Spring while it runs the validations defined by the annotations on the fields.
 
-### [shortener.html](https://github.com/davidkiss/yourl/blob/master/src/main/resources/templates/shortener.html)
-This is a Thymeleaf-based (http://www.thymeleaf.org/) template that uses Twitter Bootstrap (http://getbootstrap.com/) to render the home screen's HTML code. It renders the data (Model) provided by the request mappings in the UrlController class.
-
 ### [InMemoryUrlStoreService.java](https://github.com/davidkiss/yourl/blob/master/src/main/java/com/yourl/service/InMemoryUrlStoreService.java)
 The application currently only persists shortened urls into an in-memory persistence layer implemented in this minimalist class. Later on we can improve this by implementing the [IUrlStoreService](https://github.com/davidkiss/yourl/blob/master/src/main/java/com/yourl/service/IUrlStoreService.java) interface to persist data to a database.
 
 That's it in a nutshell. If you have any question or suggestion, don't hesitate to contact me at info@kaviddiss.com.
-
-

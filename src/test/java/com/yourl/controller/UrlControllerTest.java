@@ -56,7 +56,7 @@ class UrlControllerTest {
     @Test
     void should_return_404_when_missing_shortened_url() throws Exception {
         // Given
-        when(urlStoreService.findUrlById("vclkxvje")).thenReturn("http://abc123.com");
+        // when(urlStoreService.findUrlById("vclkxvje")).thenReturn("http://abc123.com");
 
         // When
         mockMvc.perform(
@@ -66,6 +66,19 @@ class UrlControllerTest {
                 .andExpect(status().is4xxClientError())
                 .andDo(print());
     }
+
+    @Test
+    void should_return_404_when_invalid_url() throws Exception {
+
+        // When
+        mockMvc.perform(
+                MockMvcRequestBuilders
+                        .request(HttpMethod.GET,"/{a}", "xxx_doesnt_exist")
+                        .characterEncoding("UTF-8"))
+                .andExpect(status().is4xxClientError())
+                .andDo(print());
+    }
+
 
     @Test
     void should_return_200_when_found_shortened_url() throws Exception {
