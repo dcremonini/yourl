@@ -3,11 +3,14 @@ package com.yourl.controller;
 import com.google.common.hash.Hashing;
 import com.yourl.controller.dto.ShortenUrlRequest;
 import com.yourl.service.IUrlStoreService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,18 +23,13 @@ import java.nio.charset.StandardCharsets;
 /**
  * Created by david on 2015-06-02.
  */
-@Controller
+@RestController
 public class UrlController {
 
     private IUrlStoreService urlStoreService;
 
     public UrlController(IUrlStoreService urlStoreService) {
         this.urlStoreService = urlStoreService;
-    }
-
-    @GetMapping("/")
-    public String showForm(ShortenUrlRequest request) {
-        return "shortener";
     }
 
     @GetMapping("/{id}")
@@ -46,26 +44,21 @@ public class UrlController {
     }
 
     @PostMapping("/")
-    public ModelAndView shortenUrl(HttpServletRequest httpRequest,
-                                   @Valid ShortenUrlRequest request,
-                                   BindingResult bindingResult) {
+    public void shortenUrl(HttpServletRequest httpRequest,
+                           @Valid ShortenUrlRequest request,
+                           BindingResult bindingResult) {
         String url = request.getUrl();
+
         if (!isUrlValid(url)) {
-            bindingResult.addError(new ObjectError("url", "Invalid url format: " + url));
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, String.format("Invalid url format: %s", url));
         }
 
-        ModelAndView modelAndView = new ModelAndView("shortener");
-        if (!bindingResult.hasErrors()) {
-            final String id = Hashing.murmur3_32()
+        final String id = Hashing.murmur3_32()
                 .hashString(url, StandardCharsets.UTF_8).toString();
-            urlStoreService.storeUrl(id, url);
-            String requestUrl = httpRequest.getRequestURL().toString();
-            String prefix = requestUrl.substring(0, requestUrl.indexOf(httpRequest.getRequestURI(),
+        urlStoreService.storeUrl(id, url);
+        String requestUrl = httpRequest.getRequestURL().toString();
+        String prefix = requestUrl.substring(0, requestUrl.indexOf(httpRequest.getRequestURI(),
                 "http://".length()));
-
-            modelAndView.addObject("shortenedUrl", prefix + "/" + id);
-        }
-        return modelAndView;
     }
 
     private boolean isUrlValid(String url) {
