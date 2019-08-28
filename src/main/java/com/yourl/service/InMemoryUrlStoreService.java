@@ -1,8 +1,10 @@
 package com.yourl.service;
 
+import com.yourl.controller.dto.UrlResponseDto;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -22,5 +24,10 @@ public class InMemoryUrlStoreService implements IUrlStoreService {
     @Override
     public void storeUrl(String id, String url) {
         urlByIdMap.put(id, url);
+    }
+
+    @Override
+    public List<UrlResponseDto> getAll() {
+        return null;
     }
 }
