@@ -1,5 +1,6 @@
 package com.yourl.controller;
 
+import com.yourl.controller.dto.UrlResponseDto;
 import com.yourl.service.IUrlStoreService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,8 +13,14 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -79,7 +86,6 @@ class UrlControllerTest {
                 .andDo(print());
     }
 
-
     @Test
     void should_return_200_when_found_shortened_url() throws Exception {
         // Given(
@@ -94,5 +100,47 @@ class UrlControllerTest {
                 .andExpect(status().is(301))
                 .andDo(print());
     }
+
+    @Test
+    void should_return_200_when_listing_all_urls_is_empty() throws Exception {
+        // Given
+        List<UrlResponseDto> urlResponseDtos = new ArrayList<>();
+
+        when(urlStoreService.getAll()).thenReturn(urlResponseDtos);
+
+        // When
+        mockMvc.perform(
+                    MockMvcRequestBuilders
+                        .request(HttpMethod.GET,"/urls")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .characterEncoding("UTF-8"))
+                .andExpect(status().is(200))
+                .andDo(print());
+    }
+
+    @Test
+    void should_return_one_url_when_listing_all_urls_contains_one_item() throws Exception {
+        // Given
+        List<UrlResponseDto> urlResponseDtos = new ArrayList<>();
+        UrlResponseDto urlResponseDto = new UrlResponseDto();
+        urlResponseDto.setUrl("http://abc.example.org");
+        urlResponseDto.setShortUrl("http://shortdomain.com/bvkcje");
+        urlResponseDtos.add(urlResponseDto);
+
+        when(urlStoreService.getAll()).thenReturn(urlResponseDtos);
+
+        // When
+        mockMvc.perform(
+                    MockMvcRequestBuilders
+                        .request(HttpMethod.GET,"/urls")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .characterEncoding("UTF-8"))
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].url", is("http://abc.example.org")))
+                .andExpect(jsonPath("$[0].shortUrl", is("http://shortdomain.com/bvkcje")))
+                .andDo(print());
+    }
+
 
 }

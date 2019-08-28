@@ -2,6 +2,7 @@ package com.yourl.controller;
 
 import com.google.common.hash.Hashing;
 import com.yourl.controller.dto.ShortenUrlRequest;
+import com.yourl.controller.dto.UrlResponseDto;
 import com.yourl.service.IUrlStoreService;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
@@ -19,6 +20,7 @@ import javax.validation.Valid;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 /**
  * Created by david on 2015-06-02.
@@ -41,6 +43,11 @@ public class UrlController {
         } else {
             resp.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
+    }
+
+    @GetMapping("/urls")
+    public List<UrlResponseDto> getAllUrls(HttpServletResponse resp) {
+        return  urlStoreService.getAll();
     }
 
     @PostMapping("/")
