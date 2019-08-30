@@ -1,6 +1,6 @@
 package com.yourl.controller;
 
-import com.yourl.controller.dto.UrlResponseDto;
+import com.yourl.controller.entity.UrlEntity;
 import com.yourl.service.IUrlStoreService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -104,9 +104,9 @@ class UrlControllerTest {
     @Test
     void should_return_200_when_listing_all_urls_is_empty() throws Exception {
         // Given
-        List<UrlResponseDto> urlResponseDtos = new ArrayList<>();
+        List<UrlEntity> urlEntities = new ArrayList<>();
 
-        when(urlStoreService.getAll()).thenReturn(urlResponseDtos);
+        when(urlStoreService.getAll()).thenReturn(urlEntities);
 
         // When
         mockMvc.perform(
@@ -121,13 +121,11 @@ class UrlControllerTest {
     @Test
     void should_return_one_url_when_listing_all_urls_contains_one_item() throws Exception {
         // Given
-        List<UrlResponseDto> urlResponseDtos = new ArrayList<>();
-        UrlResponseDto urlResponseDto = new UrlResponseDto();
-        urlResponseDto.setUrl("http://abc.example.org");
-        urlResponseDto.setShortUrl("http://shortdomain.com/bvkcje");
-        urlResponseDtos.add(urlResponseDto);
+        List<UrlEntity> urlEntities = new ArrayList<>();
+        UrlEntity urlEntity = new UrlEntity("http://shortdomain.com/bvkcje", "http://abc.example.org");
+        urlEntities.add(urlEntity);
 
-        when(urlStoreService.getAll()).thenReturn(urlResponseDtos);
+        when(urlStoreService.getAll()).thenReturn(urlEntities);
 
         // When
         mockMvc.perform(

@@ -1,6 +1,6 @@
 package com.yourl.service;
 
-import com.yourl.controller.dto.UrlResponseDto;
+import com.yourl.controller.entity.UrlEntity;
 
 import java.util.List;
 
@@ -13,5 +13,7 @@ public interface IUrlStoreService {
 
     void storeUrl(String id, String url);
 
-    List<UrlResponseDto> getAll();
+    List<UrlEntity> getAll();
+
+    void clear();
 }
