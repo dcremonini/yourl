@@ -1,18 +1,23 @@
-package com.yourl.controller.dto;
+package com.yourl.controller.entity;
 
 import java.util.Objects;
 
-public class UrlResponseDto {
+public class UrlEntity {
 
     private String shortUrl;
     private String url;
 
-    public UrlResponseDto() {
+    public UrlEntity(String shortUrl, String url) {
+        this.shortUrl = shortUrl;
+        this.url = url;
     }
 
-    public UrlResponseDto(String shortUrl, String longUrl) {
+    public String getShortUrl() {
+        return shortUrl;
+    }
+
+    public void setShortUrl(String shortUrl) {
         this.shortUrl = shortUrl;
-        this.url = longUrl;
     }
 
     public String getUrl() {
@@ -23,21 +28,13 @@ public class UrlResponseDto {
         this.url = url;
     }
 
-    public void setShortUrl(String shortUrl) {
-        this.shortUrl = shortUrl;
-    }
-
-    public String getShortUrl() {
-        return shortUrl;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof UrlResponseDto)) return false;
-        UrlResponseDto that = (UrlResponseDto) o;
-        return shortUrl.equals(that.shortUrl) &&
-                url.equals(that.url);
+        if (!(o instanceof UrlEntity)) return false;
+        UrlEntity urlEntity = (UrlEntity) o;
+        return shortUrl.equals(urlEntity.shortUrl) &&
+                url.equals(urlEntity.url);
     }
 
     @Override
@@ -47,10 +44,9 @@ public class UrlResponseDto {
 
     @Override
     public String toString() {
-        return "UrlResponseDto{" +
+        return "UrlEntity{" +
                 "shortUrl='" + shortUrl + '\'' +
                 ", url='" + url + '\'' +
                 '}';
     }
-
 }

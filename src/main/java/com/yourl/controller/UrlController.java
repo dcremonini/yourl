@@ -3,6 +3,7 @@ package com.yourl.controller;
 import com.google.common.hash.Hashing;
 import com.yourl.controller.dto.ShortenUrlRequest;
 import com.yourl.controller.dto.UrlResponseDto;
+import com.yourl.mapper.UrlMapper;
 import com.yourl.service.IUrlStoreService;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
@@ -45,7 +46,7 @@ public class UrlController {
 
     @GetMapping("/urls")
     public List<UrlResponseDto> getAllUrls(HttpServletResponse resp) {
-        return  urlStoreService.getAll();
+        return  UrlMapper.INSTANCE.urlEntityToUrlResponseDto(urlStoreService.getAll());
     }
 
     @PostMapping("/")
