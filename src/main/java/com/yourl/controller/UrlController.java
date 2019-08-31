@@ -5,7 +5,9 @@ import com.yourl.controller.dto.ShortenUrlRequest;
 import com.yourl.controller.dto.UrlResponseDto;
 import com.yourl.mapper.UrlMapper;
 import com.yourl.service.IUrlStoreService;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,10 +51,10 @@ public class UrlController {
         return  UrlMapper.INSTANCE.urlEntityToUrlResponseDto(urlStoreService.getAll());
     }
 
-    @PostMapping("/")
-    public void shortenUrl(HttpServletRequest httpRequest,
-                           @Valid ShortenUrlRequest request,
-                           BindingResult bindingResult) {
+    @PostMapping("/urls")
+    public ResponseEntity<UrlResponseDto> shortenUrl(HttpServletRequest httpRequest,
+                                     @Valid ShortenUrlRequest request,
+                                     BindingResult bindingResult) {
         String url = request.getUrl();
 
         if (!isUrlValid(url)) {
@@ -65,6 +67,10 @@ public class UrlController {
         String requestUrl = httpRequest.getRequestURL().toString();
         String prefix = requestUrl.substring(0, requestUrl.indexOf(httpRequest.getRequestURI(),
                 "http://".length()));
+
+        UrlResponseDto urlResponseDto = new UrlResponseDto(id, url);
+        HttpHeaders responseHeaders = new HttpHeaders();
+        return new ResponseEntity<>(urlResponseDto, responseHeaders, HttpStatus.CREATED);
     }
 
     private boolean isUrlValid(String url) {

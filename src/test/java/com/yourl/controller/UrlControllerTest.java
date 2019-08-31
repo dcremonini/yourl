@@ -16,12 +16,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * @SpringBootTest is the general test annotation.
@@ -87,7 +85,7 @@ class UrlControllerTest {
     }
 
     @Test
-    void should_return_200_when_found_shortened_url() throws Exception {
+    void should_return_301_when_found_shortened_url() throws Exception {
         // Given(
         when(urlStoreService.findUrlById("abc_123")).thenReturn("http://abc123.com");
 
@@ -140,5 +138,24 @@ class UrlControllerTest {
                 .andDo(print());
     }
 
+    @Test
+    void should_return_201_when_created_shortened_url() throws Exception {
+        // Given(
+        // when(urlStoreService.findUrlById("abc_123")).thenReturn("http://abc123.com");
+
+        // When
+        mockMvc.perform(
+                MockMvcRequestBuilders
+                        .request(HttpMethod.POST,"/urls")
+                        .param("url","http://abc.example.org")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .characterEncoding("UTF-8"))
+                .andExpect(status().is(201))
+                .andExpect(header().exists("Content-Type"))
+                .andExpect(header().string("Content-Type", "application/json;charset=UTF-8"))
+                .andExpect(jsonPath("$.url", equalTo("http://abc.example.org")))
+                .andExpect(jsonPath("$.shortUrl", not(isEmptyOrNullString())))
+                .andDo(print());
+    }
 
 }
