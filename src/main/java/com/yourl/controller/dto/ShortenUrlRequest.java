@@ -7,6 +7,10 @@ import javax.validation.constraints.Size;
  * Created by david on 2015-06-04.
  */
 public class ShortenUrlRequest {
+
+    public ShortenUrlRequest() {
+    }
+
     @NotNull
     @Size(min = 5, max = 1024)
     private String url;
