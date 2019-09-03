@@ -2,7 +2,7 @@ package com.yourl.mapper;
 
 import com.yourl.controller.dto.ShortenUrlRequest;
 import com.yourl.controller.dto.UrlResponseDto;
-import com.yourl.controller.entity.UrlEntity;
+import com.yourl.domain.UrlEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

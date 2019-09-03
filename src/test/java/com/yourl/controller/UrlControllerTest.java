@@ -1,6 +1,6 @@
 package com.yourl.controller;
 
-import com.yourl.controller.entity.UrlEntity;
+import com.yourl.domain.UrlEntity;
 import com.yourl.service.IUrlStoreService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

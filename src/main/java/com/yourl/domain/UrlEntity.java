@@ -1,7 +1,7 @@
 package com.yourl.domain;
 
-import org.springframework.data.annotation.*;
-import javax.persistence.Id;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -13,6 +13,11 @@ import java.util.Date;
 public class UrlEntity {
 
     public UrlEntity() {
+    }
+
+    public UrlEntity(String shortUrl, String url) {
+        this.shortUrl = shortUrl;
+        this.url = url;
     }
 
     public UrlEntity(Long id, String shortUrl, String url, Date createdDate, Date lastModifiedDate) {
