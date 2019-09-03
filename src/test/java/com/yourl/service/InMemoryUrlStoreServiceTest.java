@@ -48,7 +48,7 @@ class InMemoryUrlStoreServiceTest {
         assertThat(urlResponseDTOs).isNotNull();
         assertThat(urlResponseDTOs).size().isEqualTo(2);
 
-        urlResponseDTOs.stream().findAny().filter(dto -> dto.getShortUrl().equals("short1") && dto.getUrl().equals("http://long1"));
-        urlResponseDTOs.stream().findAny().filter(dto -> dto.getShortUrl().equals("short2") && dto.getUrl().equals("http://long2"));
+        assertThat(urlResponseDTOs.stream().filter(dto -> dto.getShortUrl().equals("short1") && dto.getUrl().equals("http://long1")).findAny().isPresent()).isTrue();
+        assertThat(urlResponseDTOs.stream().filter(dto -> dto.getShortUrl().equals("short2") && dto.getUrl().equals("http://long2")).findAny().isPresent()).isTrue();
     }
 }
