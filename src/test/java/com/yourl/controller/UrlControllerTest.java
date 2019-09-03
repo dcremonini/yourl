@@ -117,6 +117,25 @@ class UrlControllerTest {
     }
 
     @Test
+    void should_return_entity_when_present() throws Exception {
+        // Given
+        when(urlStoreService.findUrlById("aa77cd")).thenReturn("http://WD5.example.org");
+
+        // When and then
+        mockMvc.perform(
+                MockMvcRequestBuilders
+                        .request(HttpMethod.GET,"/urls/aa77cd")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .characterEncoding("UTF-8"))
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("$.url", is("http://WD5.example.org")))
+                .andExpect(jsonPath("$.shortUrl", is("aa77cd")))
+                .andDo(print());
+
+    }
+
+
+    @Test
     void should_return_one_url_when_listing_all_urls_contains_one_item() throws Exception {
         // Given
         List<UrlEntity> urlEntities = new ArrayList<>();

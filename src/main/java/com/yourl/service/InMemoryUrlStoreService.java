@@ -28,10 +28,10 @@ public class InMemoryUrlStoreService implements IUrlStoreService {
 
     @Override
     public List<UrlEntity> getAll() {
-        List<UrlEntity> urlResponseDtos = new ArrayList<>(2);
-        urlResponseDtos.add(new UrlEntity("short1", "http://long1"));
-        urlResponseDtos.add(new UrlEntity("short2", "http://long2"));
-        return urlResponseDtos;
+        List<UrlEntity> urlResponseDTOs = new ArrayList<>(2);
+        urlResponseDTOs.add(new UrlEntity("short1", "http://long1"));
+        urlResponseDTOs.add(new UrlEntity("short2", "http://long2"));
+        return urlResponseDTOs;
     }
 
     @Override
