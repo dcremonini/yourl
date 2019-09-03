@@ -1,6 +1,5 @@
 package com.yourl.service;
 
-import com.yourl.controller.dto.UrlResponseDto;
 import com.yourl.controller.entity.UrlEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class InMemoryUrlStoreServiceTest {
@@ -44,15 +42,15 @@ class InMemoryUrlStoreServiceTest {
         urlStoreService.storeUrl("short2", "http://long2");
 
         // When
-        List<UrlEntity> urlResponseDtos = urlStoreService.getAll();
+        List<UrlEntity> urlResponseDTOs = urlStoreService.getAll();
 
         // Then
         UrlEntity urlEntity1 = new UrlEntity("short1", "http://long1");
         UrlEntity urlEntity2 = new UrlEntity("short2", "http://long2");
-        assertThat(urlResponseDtos).isNotNull();
-        assertThat(urlResponseDtos).size().isEqualTo(2);
-        assertThat(urlResponseDtos).contains(urlEntity1);
-        assertThat(urlResponseDtos).contains(urlEntity2);
+        assertThat(urlResponseDTOs).isNotNull();
+        assertThat(urlResponseDTOs).size().isEqualTo(2);
+        assertThat(urlResponseDTOs).contains(urlEntity1);
+        assertThat(urlResponseDTOs).contains(urlEntity2);
 
     }
 }

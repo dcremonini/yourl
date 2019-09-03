@@ -48,7 +48,15 @@ public class UrlController {
 
     @GetMapping("/urls")
     public List<UrlResponseDto> getAllUrls(HttpServletResponse resp) {
-        return  UrlMapper.INSTANCE.urlEntityToUrlResponseDto(urlStoreService.getAll());
+        return  UrlMapper.INSTANCE.urlEntitiesToUrlResponseDTOs(urlStoreService.getAll());
+    }
+
+    @GetMapping("/urls/{id}")
+    public UrlResponseDto getOneUrl(@PathVariable String id, HttpServletResponse resp) {
+        UrlResponseDto urlResponseDto = new UrlResponseDto();
+        urlResponseDto.setUrl(urlStoreService.findUrlById(id));
+        urlResponseDto.setShortUrl(id);
+        return urlResponseDto;
     }
 
     @PostMapping("/urls")
