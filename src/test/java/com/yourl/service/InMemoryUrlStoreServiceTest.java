@@ -1,6 +1,6 @@
 package com.yourl.service;
 
-import com.yourl.controller.entity.UrlEntity;
+import com.yourl.domain.UrlEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,12 +45,10 @@ class InMemoryUrlStoreServiceTest {
         List<UrlEntity> urlResponseDTOs = urlStoreService.getAll();
 
         // Then
-        UrlEntity urlEntity1 = new UrlEntity("short1", "http://long1");
-        UrlEntity urlEntity2 = new UrlEntity("short2", "http://long2");
         assertThat(urlResponseDTOs).isNotNull();
         assertThat(urlResponseDTOs).size().isEqualTo(2);
-        assertThat(urlResponseDTOs).contains(urlEntity1);
-        assertThat(urlResponseDTOs).contains(urlEntity2);
 
+        urlResponseDTOs.stream().findAny().filter(dto -> dto.getShortUrl().equals("short1") && dto.getUrl().equals("http://long1"));
+        urlResponseDTOs.stream().findAny().filter(dto -> dto.getShortUrl().equals("short2") && dto.getUrl().equals("http://long2"));
     }
 }

@@ -1,6 +1,6 @@
 package com.yourl.service;
 
-import com.yourl.controller.entity.UrlEntity;
+import com.yourl.domain.UrlEntity;
 
 import java.util.List;
 
